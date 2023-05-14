@@ -16,7 +16,8 @@ const Index = () => {
 
 
   return (
-    <div className=' grid sm:grid-cols-4  lg:grid-cols-6 grid-cols-3 mt-8 gap-x-6 gap-y-8'>
+ <div className='bg-gradient-r from-cyan-300 to-blue-500 '>
+      <div className=' grid sm:grid-cols-4  lg:grid-cols-6 grid-cols-3 mt-8 gap-x-6 gap-y-8 '>
       {places.length > 0 && places.map((place)=>(
         <Link to={'/place/'+place._id} key={place._id}>
           <div className='bg-gray-500  rounded-2xl flex mb-2 '>
@@ -31,6 +32,7 @@ const Index = () => {
         </Link>
       ))}
     </div>
+ </div>
   )
 }
 

@@ -4,6 +4,7 @@ import { Link, Navigate, useParams } from 'react-router-dom'
 import AccountNav from '../components/AccountNav'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import PlaceImg from '../components/PlaceImg'
 
 
 
@@ -28,7 +29,7 @@ const PlacePage = () => {
       <AccountNav/>
    
         <div className="text-center">
-        list all places <br />
+        
           <Link
             to={'/account/places/new'}
             className="inline-flex gap-2  bg-primary text-white rounded-full py-2 px-6"
@@ -57,10 +58,8 @@ const PlacePage = () => {
             return (
               <Link to={`/account/places/${place._id}`} className= 
               'flex cursor-pointer gap-4 bg-gray-300 rounded-2xl p-4 mt-3'>
-                <div className='flex w-32 h-32 bg-gray-100 grow shrink-0 '>
-                  {place.photos.length > 0 && (
-                    <img className='object-cover w-full' src={'http://localhost:4000/upload/' + place.photos[0]} alt=""/>
-                  )}
+                <div className='flex w-32 h-32 bg-gray-100  shrink-0 '>
+                <PlaceImg place={place} />
 
                 </div>
                

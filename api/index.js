@@ -276,11 +276,11 @@ app.get('/place/:id',async(req,res)=>{
   })
 
   // 预定endpoint
-  app.post('/booking', (req,res)=>{
+  app.post('/booking', async (req,res)=>{
     const {checkIn,checkOut,mobile,name,place,Guests,price} = req.body
-
+    const userData = await getUserDataFromToken(req.cookies.token)
   Booking.create({
-    checkIn,checkOut,mobile,name,place,Guests,price
+    checkIn,checkOut,mobile,name,place,Guests,price,user:userData.id
   }).then((doc)=>{
   
     res.json(doc)
@@ -299,6 +299,29 @@ app.get('/place/:id',async(req,res)=>{
 
      res.json(await Booking.findById(id))
 
+
+  })
+
+  function getUserDataFromToken (token) {
+    return new Promise(resolve=>{
+      jwt.verify(token,jwtSecret,{},async (err,userData) => {
+        if (err) throw err;
+          resolve(userData)
+
+    })
+
+    })
+ 
+
+  }
+  // 获取所有的booking 
+  app.get('/bookings',async(req,res)=> {
+
+    const {token} = req.cookies
+    const userData = await getUserDataFromToken(token)
+    
+   
+    res.json(await Booking.find({user:userData.id}).populate('place'))
 
   })
 
